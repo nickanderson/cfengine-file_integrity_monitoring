@@ -1,0 +1,45 @@
+bundle common FIM_tag_subscribe_all_changes_test
+{
+  vars:
+    "input[def]" string => "$(this.promise_dirname)/../def.cf";
+
+    "inputs" slist => getvalues(input);
+}
+body file control
+{
+  inputs=> { @(FIM_tag_subscribe_all_changes_test.inputs) };
+}
+
+bundle agent main
+{
+  methods:
+    "app_one" usebundle => app_one;
+    "app_two" usebundle => app_two;
+    "FIM" usebundle => FIM_tag_subscribe_all_changes;
+}
+
+bundle agent app_one
+{
+  vars:
+    "config_file"
+      string => "/etc/httpd.conf",
+      handle => "app_one_config_file",
+      meta => {  "FIM=all_changes" },
+      comment => "This is where the application is configured, I also want to
+                  monitor the file for all changes for audiotory compliance
+                  reasons.";
+}
+
+bundle agent app_two
+{
+  vars:
+    "config_file"
+      string => "/etc/passwd",
+      handle => "app_two_config_file",
+      meta => {  "FIM=all_changes" },
+      comment => "This is where the application is configured, I also want to
+                  monitor the file for all changes for audiotory compliance
+                  reasons.";
+}
+
+

@@ -1,0 +1,18 @@
+bundle common file_integrity_monitoring_def
+{
+  vars:
+      # Potentially guard this with an enable|disable class to preven
+      # loading and parsing of unnecessary policy files
+    any::
+      "input[FIM_tag_subscribe_all_changes]"
+        string => "$(this.promise_dirname)/policy/FIM_tag_subscribe_all_changes.cf";
+
+    any::
+      "inputs" slist => getvalues(input);
+
+}
+
+body file control
+{
+  inputs => { @(file_integrity_monitoring_def.inputs) };
+}
