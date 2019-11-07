@@ -4,9 +4,18 @@ Monitor key files for changes.
 
 ** FIM_tag_subscribe_all_changes
 
-This bundle locates any variables tagged `FIM=all_changes` and applies
+This bundle locates any variables tagged =FIM=all_changes= and applies
 change changes monitoring to the file _if the file exists_.
 
 An inventory for monitored files is also provided.
 
+
 For example usage see `test/test.cf`.
+
+** Installing with cpm
+#+begin_src sh
+  exec 2>&1
+  MASTERFILES=/home/nickanderson/CFEngine/cfengine-enterprise-demo/ cpm search lib-FIM
+  :
+#+end_src
+

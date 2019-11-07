@@ -1,0 +1,17 @@
+MASTERFILES ?= /var/cfengine/masterfiles
+#PROJECT ?= $(shell basename $(CURDIR) )
+PROJECT ?= FIM
+INSTALL_TARGET=${MASTERFILES}/lib/${PROJECT}
+FILES=$(shell find .)
+install: ${FILES}
+	mkdir -p ${INSTALL_TARGET}/
+	rsync -avz --exclude \.#.* ${CURDIR}/* ${INSTALL_TARGET}/
+	find ${INSTALL_TARGET}/ -type f | xargs chmod 600
+	find ${INSTALL_TARGET}/ -type d | xargs chmod 700
+	echo "Don't forget to include the policy in inputs!"
+	echo "Try the augments file (def.json)"
+	echo '{"inputs": [ "lib/${PROJECT}/policy/tag_subscribe_all_changes.cf" ]}'
+
+uninstall:
+	# Remove deployed policy
+	rm -rf $(DEPLOY_DIR)
