@@ -1,0 +1,42 @@
+body file control
+{
+  inputs => {
+              "$(sys.libdir)/files.cf",
+            };
+  namespace => "FIM";
+}
+
+bundle agent monitor_file_paths_tagged_all_changes
+{
+  meta:
+      "description" string => "Inventory and monitor any filepath tagged with FIM=all_changes";
+      "authors" slist => { "Nick Anderson <nick@cmdln.org>" };
+
+  vars:
+
+      "files_to_monitor"
+        slist => variablesmatching(".*", "FIM=all_changes");
+
+      # Note: I am using fileexists twice here, probably it would be more
+      # efficient to define a class for each of these and then just use the
+      # class. I have chosen not to do that as I think that it would be better to
+      # remove the fileexists restriction. With it in place we get no
+      # notification when a file goes missing. It is in place however to suppress
+      # the error message printed when the file is not present. This message
+      # spams logs and should probably be moved to verbose or debug level output.
+      "monitor[$(files_to_monitor)]"
+        string => "$($(files_to_monitor))",
+        if => fileexists("$($(files_to_monitor))"),
+        meta => { "inventory", "attribute_name=File Integrity Monitor All Changes" };
+
+  files:
+
+      "$($(files_to_monitor))"
+        handle => "FIM_monitor_all_changes_file_path_$(files_to_monitor)",
+        changes => default:all_changes,
+        comment => "Monitoring $($(files_to_monitor)) for all changes",
+        if => fileexists("$($(files_to_monitor))"); # This restriction
+              # suppresses errors about trying to promise to monitor a file for
+              # changes that does not exist. Would it be more efficient to use
+              # $(this.promiser) here?
+}

@@ -13,9 +13,47 @@ An inventory for monitored files is also provided.
 For example usage see `test/test.cf`.
 
 ** Installing with cpm
-#+begin_src sh
+#+begin_src sh :exports both :results output
   exec 2>&1
-  MASTERFILES=/home/nickanderson/CFEngine/cfengine-enterprise-demo/ cpm search lib-FIM
+  export MASTERFILES=/home/nickanderson/CFEngine/cfengine-enterprise-demo/
+  cpm search lib-FIM
+  cpm install lib-FIM 
   :
 #+end_src
+
+#+RESULTS:
+#+begin_example
+lib-FIM
+make: Entering directory '/home/nickanderson/src/cpm/user/packages/lib-FIM'
+mkdir -p ~/CFEngine/cfengine-enterprise-demo//lib/FIM/
+rsync -avz --exclude \.#.* /home/nickanderson/src/cpm/user/packages/lib-FIM/* ~/CFEngine/cfengine-enterprise-demo//lib/FIM/
+sending incremental file list
+LICENSE
+README.org
+def.cf
+def.json
+makefile
+images/
+images/2015-07-19-Selection_001.jpg
+policy/
+policy/tag_subscribe_all_changes.cf
+test/
+test/test.cf
+
+sent 74,668 bytes  received 188 bytes  49,904.00 bytes/sec
+total size is 116,983  speedup is 1.56
+find ~/CFEngine/cfengine-enterprise-demo//lib/FIM/ -type f | xargs chmod 600
+find ~/CFEngine/cfengine-enterprise-demo//lib/FIM/ -type d | xargs chmod 700
+echo "Don't forget to include the policy in inputs!"
+Don't forget to include the policy in inputs!
+echo "Try the augments file (def.json)"
+Try the augments file (def.json)
+echo '{"inputs": [ "lib/FIM/policy/tag_subscribe_all_changes.cf" ]}'
+{"inputs": [ "lib/FIM/policy/tag_subscribe_all_changes.cf" ]}
+make: Leaving directory '/home/nickanderson/src/cpm/user/packages/lib-FIM'
+Downloading 'lib-FIM'...
+Installing 'lib-FIM'...
+Finished installer(s) for 'lib-FIM'.
+Successfully applied changes to '/home/nickanderson/src/cfengine-file_integrity_monitoring/~/CFEngine/cfengine-enterprise-demo/def.json'
+#+end_example
 

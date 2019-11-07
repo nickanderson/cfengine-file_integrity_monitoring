@@ -10,7 +10,7 @@ install: ${FILES}
 	find ${INSTALL_TARGET}/ -type d | xargs chmod 700
 	echo "Don't forget to include the policy in inputs!"
 	echo "Try the augments file (def.json)"
-	echo '{"inputs": [ "lib/${PROJECT}/policy/tag_subscribe_all_changes.cf" ]}'
+	echo '{"inputs": [ "lib/${PROJECT}/policy/monitor_file_paths_tagged_all_changes.cf" ]}'
 
 uninstall:
 	# Remove deployed policy
