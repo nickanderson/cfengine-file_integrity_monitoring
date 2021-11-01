@@ -1,0 +1,17 @@
+{
+    "name": "File Integrity Monitoring",
+    "description": "Monitor select files for change.",
+    "type": "module",
+    "provides": {
+        "library-file-integrity-monitoring": {
+            "description": "Monitor key files for changes",
+            "tags": ["wip", "untested"],
+            "repo": "https://github.com/nickanderson/cfengine-file_integrity_monitoring",
+            "by": "https://github.com/nickanderson",
+            "steps": [
+                "copy policy/monitor_file_paths_tagged_all_changes.cf services/file_integrity_monitoring/",
+                "json def.json def.json"
+            ]
+        }
+    }
+}
