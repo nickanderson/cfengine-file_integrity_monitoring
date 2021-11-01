@@ -13,7 +13,6 @@ For example usage see =test/test.cf=.
 * Installing with cfbs
 
 #+begin_example
-  ❯ cfbs search lib-FIM
   ❯ cfbs search file-in
   library-file-integrity-monitoring (lib-fim) - Monitor key files for changes
   ❯ cfbs add library-file-integrity-monitoring
