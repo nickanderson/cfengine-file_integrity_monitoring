@@ -1,6 +1,0 @@
-{
-    "inputs": [ "lib/FIM/monitor_file_paths_tagged_all_changes.cf" ],
-  "vars": {
-    "control_common_bundlesequence_end": [ "FIM:monitor_file_paths_tagged_all_changes" ]
-    }
-}

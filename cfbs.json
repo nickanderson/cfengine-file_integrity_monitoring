@@ -10,7 +10,7 @@
             "by": "https://github.com/nickanderson",
             "steps": [
                 "copy policy/monitor_file_paths_tagged_all_changes.cf services/file_integrity_monitoring/",
-                "json def.json def.json"
+                "json cfbs/def.json def.json"
             ]
         }
     }
